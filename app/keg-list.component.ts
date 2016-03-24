@@ -3,6 +3,7 @@ import { KegComponent } from './keg.component';
 import { Keg } from './keg.model';
 import { EditKegDetailsComponent } from './edit-keg-details.component';
 import { NewKegComponent } from './new-keg.component';
+import {LowPipe} from './low.pipe';
 
 
 // CHILD component based on parent component.
@@ -17,8 +18,14 @@ import { NewKegComponent } from './new-keg.component';
   inputs: ['kegList'],
   outputs: ['onKegSelect'],
   directives: [KegComponent, EditKegDetailsComponent, NewKegComponent],
+  pipes: [LowPipe],
   template: `
-  <keg-display *ngFor="#currentKeg of kegList"
+  <select (change)="onChange($event.target.value)">
+    <option value="all">Show All</option>
+    <option value="low">Show Low</option>
+    <option value="notLow" selected="selected">Show Full(ish) Kegs</option>
+  </select>
+  <keg-display *ngFor="#currentKeg of kegList | low:filterLow"
     (click)="kegClicked(currentKeg)"
     [class.selected]= "currentKeg === selectedKeg"
     [keg]="currentKeg">
@@ -34,6 +41,7 @@ export class KegListComponent {
   public kegList: Keg[];
   public onKegSelect: EventEmitter<Keg>;
   public selectedKeg: Keg;
+  public filterLow: string = "notLow";
   constructor(){
     this.onKegSelect = new EventEmitter();
   }
@@ -45,6 +53,8 @@ export class KegListComponent {
   createKeg(newKeg: Keg): void {
     this.kegList.push(newKeg);
   }
+  onChange(filterOption){
+    this.filterLow = filterOption;
+  }
 
-  //on(click) -= 1 method will go here
 }
