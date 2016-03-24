@@ -21,8 +21,12 @@ export class NewKegComponent {
     this.onSubmitNewKeg = new EventEmitter();
   }
   addKeg(newName: HTMLInputElement, newBrand: HTMLInputElement, newPrice: HTMLInputElement, newAlcohol: HTMLInputElement){
-    var newKeg = new Keg(newName.value, newBrand.value, newPrice.value, newAlcohol.value);
+
+    var newKeg = new Keg(newName.value, newBrand.value, parseInt(newPrice.value), parseFloat(newAlcohol.value));
     this.onSubmitNewKeg.emit(newKeg);
     newName.value = "";
+    newBrand.value = "";
+    newPrice.value = "";
+    newAlcohol.value = "";
   }
 }

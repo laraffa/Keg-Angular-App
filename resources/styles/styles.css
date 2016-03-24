@@ -5,13 +5,17 @@ h1 {
   color: #22bdf0;
 }
 
-h3 {
-  .lager {
-    color: orange;
-  }
-}
 
 .keg-form {
   margin-top: 80px;
   margin-bottom: 80px;
+}
+.cheap {
+  color: blue;
+}
+.expensive {
+  color: green;
+}
+.strong {
+  font-style: italic;
 }

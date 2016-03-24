@@ -26,6 +26,9 @@ import {LowPipe} from './low.pipe';
     <option value="notLow" selected="selected">Show Full(ish) Kegs</option>
   </select>
   <keg-display *ngFor="#currentKeg of kegList | low:filterLow"
+    [class.cheap]="currentKeg.price <= 5"
+    [class.expensive]="currentKeg.price >= 5"
+    [class.strong]= "currentKeg.alcohol >= 6"
     (click)="kegClicked(currentKeg)"
     [class.selected]= "currentKeg === selectedKeg"
     [keg]="currentKeg">
