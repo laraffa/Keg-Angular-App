@@ -4,6 +4,7 @@ import { Keg } from './keg.model';
 
 
 
+
 // PARENT
 //*ngFor =
 // creates a "for each loop", directive duplicates html elements it is bound to in array,  (prints out each element once, as it loops through the array)(sidenote: if a div is named with *ngFor, it will loop through everything inside the div for the length of the array)
@@ -30,11 +31,11 @@ export class AppComponent {
   public kegs : Keg[];
   constructor(){
     this.kegs = [
-      new Keg("Lager ", "Rainier ", 2, " ", .04),
-      new Keg("Lager ", "Narragansett ", 3, " ", .045),
-      new Keg("Lager ", "Schaefer ", 3, " ", .04),
-      new Keg("Lager ", "National Bohemian ", 3, " ", .04),
-      new Keg("Lager ", "Black Label ", 2, " ", .04)
+      new Keg("Lager ", "Rainier ", 2, .04),
+      new Keg("Lager ", "Narragansett ", 3,   .045),
+      new Keg("Lager ", "Schaefer ", 3,  .04),
+      new Keg("Lager ", "National Bohemian ", 3,  .04),
+      new Keg("Lager ", "Black Label ", 2, .04)
     ];
   }
 

@@ -2,18 +2,21 @@ import { Component, EventEmitter} from 'angular2/core';
 import { KegComponent } from './keg.component';
 import { Keg } from './keg.model';
 import { EditKegDetailsComponent } from './edit-keg-details.component';
+import { NewKegComponent } from './new-keg.component';
 
 
 // CHILD component based on parent component.
 //selector: html element which will be used in parent template so it knows where to load the components kegList array
-//template: replaces loop in parent, *ngFor uses a forEach loop to display beer info, name changes from keg(in parent) to currentKeg, taskWasSelected method (in parent) changes to kegClicked method
+//template: replaces loop in parent, *ngFor uses a forEach loop to display beer info, name changes from keg(in parent) to currentKeg, kegWasSelected method (in parent) changes to kegClicked method
+//*ngIf used like *ngFor, works as an attribute on an HTML tag. if expression in "" quotes is true (or not false) than HTML tag is shown, if false then tag is hidden
 //inputs: saying "when i grow up, i'll have a property called kegList and it will be an array of info given to me from my parent", []=input
 //custom EventEmitter = onKegSelect
+
 @Component({
   selector: 'keg-list',
   inputs: ['kegList'],
   outputs: ['onKegSelect'],
-  directives: [KegComponent, EditKegDetailsComponent],
+  directives: [KegComponent, EditKegDetailsComponent, NewKegComponent],
   template: `
   <keg-display *ngFor="#currentKeg of kegList"
     (click)="kegClicked(currentKeg)"
@@ -23,6 +26,7 @@ import { EditKegDetailsComponent } from './edit-keg-details.component';
   <edit-keg-details *ngIf="selectedKeg"
   [keg]="selectedKeg">
   </edit-keg-details>
+  <new-keg (onSubmitNewKeg)="createKeg($event)"></new-keg>
   `
 })
 
@@ -35,7 +39,12 @@ export class KegListComponent {
   }
   kegClicked(clickedKeg: Keg): void {
     console.log(clickedKeg);
-    this.selectedKeg= clickedKeg;
-    this.onKegSelect.emit(clickedKeg)
+    this.selectedKeg = clickedKeg;
+    this.onKegSelect.emit(clickedKeg);
   }
+  createKeg(newKeg: Keg): void {
+    this.kegList.push(newKeg);
+  }
+
+  //on(click) -= 1 method will go here
 }
